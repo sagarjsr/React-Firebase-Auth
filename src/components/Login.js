@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext';
 
 const Signin = () => {
@@ -9,7 +9,8 @@ const Signin = () => {
     const passwordRef = useRef();
     const { sigIn } = useAuth();
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,7 +18,8 @@ const Signin = () => {
             setError('')
             setLoading(true);
             console.log('hsjsj')
-            await sigIn(emailRef.current.value, passwordRef.current.value)
+            await sigIn(emailRef.current.value, passwordRef.current.value);
+            history.push('/')
         } catch {
             setError('Failed to Sign In')
         }
